@@ -1,8 +1,13 @@
-function SearchBar() {
+function SearchBar({ city, setCity, onSearch }) {
     return (
         <div>
-            <input placeholder="Enter a city name" />
-            <button type="button">Search</button>
+            <input
+                type="text"
+                placeholder="Enter a city name"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+            />
+            <button onClick={onSearch}>Search</button>
         </div>
     );
 }
