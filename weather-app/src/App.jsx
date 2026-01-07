@@ -1,22 +1,35 @@
 import { useState } from "react";
-import WheatherCard from "./components/WeatherCard";
+import { fetchWeather } from "./services/weatherApi";
+import WeatherCard from "./components/WeatherCard";
 import SearchBar from "./components/SearchBar";
 
 function App() {
   const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
 
-  const handleSearch = () => {
-    console.log("Searching weather for :", city)
+  const handleSearch = async () => {
+    if (!city.trim()) return;
+
+    try {
+      const data = await fetchWeather(city);
+      setWeather(data);
+      console.log("Weather Data:", data);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
   };
+
   return (
-    <div className='app'>
+    <div className="app">
       <h1>🌦️ Weather App</h1>
+
       <SearchBar
         city={city}
         setCity={setCity}
         onSearch={handleSearch}
       />
-      <WheatherCard />
+
+      <WeatherCard />
     </div>
   );
 }

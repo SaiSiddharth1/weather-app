@@ -1,4 +1,4 @@
-function WheatherCard() {
+function WeatherCard() {
     return (
         <div>
             <h2>Weather Info</h2>
@@ -8,4 +8,4 @@ function WheatherCard() {
         </div>
     );
 }
-export default WheatherCard;
+export default WeatherCard;
