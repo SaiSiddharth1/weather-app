@@ -29,7 +29,7 @@ function App() {
         onSearch={handleSearch}
       />
 
-      <WeatherCard />
+      <WeatherCard weather={weather} />
     </div>
   );
 }
