@@ -1,15 +1,14 @@
-function SearchBar({ city, setCity, onSearch }) {
+function SearchBar({ city, setCity, onSearch, disabled }) {
     return (
         <div>
-            <input className="inp"
-                type="text"
-                placeholder="Enter a city name"
+            <input
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
+                placeholder="Enter city name"
             />
-            <br />
-            <br />
-            <button onClick={onSearch}>Search</button>
+            <button onClick={onSearch} disabled={disabled}>
+                Search
+            </button>
         </div>
     );
 }

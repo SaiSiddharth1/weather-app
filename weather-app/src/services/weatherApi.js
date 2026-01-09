@@ -5,9 +5,12 @@ export async function fetchWeather(city) {
     const response = await fetch(
         `${BASE_URL}?q=${city}&appid=${API_KEY}&units=metric`
     );
-    if (!response.ok) {
-        throw new Error("Failed to fetch weather data");
-    }
+
     const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch weather");
+    }
+
     return data;
 }
