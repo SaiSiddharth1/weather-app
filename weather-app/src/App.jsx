@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import WeatherCard from "./components/WeatherCard";
-import { fetchWeather } from "./services/weatherApi";
+import {
+  fetchWeatherByCity,
+  fetchWeatherByCoords,
+} from "./services/weatherApi";
 
 function App() {
   const [city, setCity] = useState("");
@@ -17,7 +20,7 @@ function App() {
       setError("");
       setWeather(null);
 
-      const data = await fetchWeather(city);
+      const data = await fetchWeatherByCity(city);
       setWeather(data);
     } catch (err) {
       setError(err.message || "Something went wrong");
@@ -25,6 +28,28 @@ function App() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          setLoading(true);
+          const { latitude, longitude } = position.coords;
+          const data = await fetchWeatherByCoords(latitude, longitude);
+          setWeather(data);
+        } catch (err) {
+          setError(err.message || "Something went wrong");
+        } finally {
+          setLoading(false);
+        }
+      },
+      () => {
+        setError("Geolocation permission denied.");
+      }
+    );
+  }, []);
+
+
 
   return (
     <div className="app">
