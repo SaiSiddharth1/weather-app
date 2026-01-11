@@ -12,4 +12,5 @@ function SearchBar({ city, setCity, onSearch, disabled }) {
         </div>
     );
 }
+
 export default SearchBar;

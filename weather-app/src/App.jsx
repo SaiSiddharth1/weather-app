@@ -18,12 +18,10 @@ function App() {
     try {
       setLoading(true);
       setError("");
-      setWeather(null);
-
       const data = await fetchWeatherByCity(city);
       setWeather(data);
     } catch (err) {
-      setError(err.message || "Something went wrong");
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -34,22 +32,21 @@ function App() {
       async (position) => {
         try {
           setLoading(true);
+          setError("");
           const { latitude, longitude } = position.coords;
           const data = await fetchWeatherByCoords(latitude, longitude);
           setWeather(data);
         } catch (err) {
-          setError(err.message || "Something went wrong");
+          setError(err.message);
         } finally {
           setLoading(false);
         }
       },
       () => {
-        setError("Geolocation permission denied.");
+        setError("Location permission denied");
       }
     );
   }, []);
-
-
 
   return (
     <div className="app">
@@ -62,10 +59,8 @@ function App() {
         disabled={loading}
       />
 
-
-      {loading && <p>Loading weather...</p>}
+      {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
-
       {!loading && !error && <WeatherCard weather={weather} />}
     </div>
   );

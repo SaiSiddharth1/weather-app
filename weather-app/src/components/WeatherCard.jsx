@@ -1,7 +1,8 @@
 function WeatherCard({ weather }) {
-    if (!weather) {
-        return <p>NO WEATHER DATA YET. SEARCH FOR A CITY</p>
+    if (!weather || !weather.main) {
+        return <p>No weather data available.</p>;
     }
+
 
     return (
         <div>
@@ -13,4 +14,5 @@ function WeatherCard({ weather }) {
         </div>
     );
 }
+
 export default WeatherCard;
